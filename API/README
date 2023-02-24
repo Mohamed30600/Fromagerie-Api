@@ -1,0 +1,2 @@
+Installer : - pydantic[dotenv]
+            - python-multipart

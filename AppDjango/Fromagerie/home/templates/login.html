@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block styles %}
+
+{{ block.super }}
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/˓→v5.3.1/css/all.css"integrity="sha384-˓→mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+
+{% endblock %}
+
+{% block content %}
+
+    <main class="form-signin w-100 m-auto">
+        
+        <form action="" method="post">
+        {% csrf_token %}
+          <h1 class="h3 mb-3 fw-normal">Se connecter</h1>
+      
+          <div class="form-floating">
+            <input type="login" class="form-control" id="floatingInput" placeholder="name@example.com" name="login">
+            <label for="floatingInput">Identifiant</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+            <label for="floatingPassword">Mot de Passe</label>
+          </div>
+      
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Se connecter</button>
+          
+        </form>
+      </main>
+
+    {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endif %}
+
+{% endblock %}
+

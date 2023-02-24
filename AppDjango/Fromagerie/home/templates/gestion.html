@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Gestion{% endblock %}
+
+{% block styles %}
+
+{{ block.super }}
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/˓→v5.3.1/css/all.css"integrity="sha384-˓→mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+
+{% endblock %}
+
+{% block nav %}
+{{ block.super }}
+<ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">
+            Se déconnecter
+        </a>
+    </li>
+</ul>
+
+{% endblock %}
+{% block content %}
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="Utilisateurs-tab" data-bs-toggle="tab" 
+      data-bs-target="#Utilisateurs" type="button" role="tab" aria-controls="Utilisateurs" aria-selected="true">Utilisateurs</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="Objets-tab" data-bs-toggle="tab" 
+      data-bs-target="#Objets" type="button" role="tab" aria-controls="Objets" aria-selected="false">Objets</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="Poids-tab" data-bs-toggle="tab" 
+      data-bs-target="#Poids" type="button" role="tab" aria-controls="Poids" aria-selected="false">Poids</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="Emballages-tab" data-bs-toggle="tab" 
+        data-bs-target="#Emballages" type="button" role="tab" aria-controls="Emballages" aria-selected="false">Emballages</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="Communes-tab" data-bs-toggle="tab" 
+        data-bs-target="#Communes" type="button" role="tab" aria-controls="Communes" aria-selected="false">Communes</button>
+      </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="Utilisateurs" role="tabpanel" aria-labelledby="Utilisateurs-tab">
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Couleur Fond</th>
+                    <th scope="col">Date c</th>
+                    <th scope="col">Identifiant</th>
+                    <th scope="col">Mot de passe</th>
+                    <th scope="col">Roles</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <th scope="row">{{ user.codeutilisateur }}</th>
+                    <td>{{ user.nomutilisateur }}</td>
+                    <td>{{ user.couleurfondutilisateur }}</td>
+                    <td>{{ user.datecdeutilisateur }}</td>
+                    <td>{{ user.login }}</td>
+                    <td>{{ user.pwd }}</td>
+                    <td>
+                        <table class="table">
+                            <tbody>
+                                {% for role in user.roles %}
+                                    <tr>
+                                        <td>{{ role.librole }} </td>   
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </td>
+                    <td> <a href="#">Modifier</a> </td>
+                    <td> <a href="#">Supprimer</a> </td>
+                </tr>
+            {% endfor  %}
+            </tbody>
+        </table>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddUser">
+            Ajouter un nouvel utilisateur
+        </button>
+        
+    </div>
+    <div class="tab-pane fade" id="Objets" role="tabpanel" aria-labelledby="Objets-tab">...</div>
+    <div class="tab-pane fade" id="Poids" role="tabpanel" aria-labelledby="Poids-tab">...</div>
+    <div class="tab-pane fade" id="Emballages" role="tabpanel" aria-labelledby="Emballages-tab">...</div>
+    <div class="tab-pane fade" id="Communes" role="tabpanel" aria-labelledby="Communes-tab">...</div>
+  </div>
+
+
+<!-- Modal Ajout Utilisateur -->
+<div class="modal fade" id="AddUser" tabindex="-1" role="dialog" aria-labelledby="AddUserLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="AddUserLabel">Nouvel utilisateur</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary">Ajouter</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+{% if message %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+{% endif %}
+  
+{% endblock %}
